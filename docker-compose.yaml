@@ -1,0 +1,23 @@
+services:
+  grist-test:
+    image: ${GRIST_IMAGE:-gristlabs/grist:latest}
+    container_name: grist-test
+    environment:
+      DEBUG: ${DEBUG:-}
+      GRIST_DOMAIN: localhost:8485
+      APP_HOME_URL: http://localhost:8485
+      GRIST_SESSION_DOMAIN: localhost
+      GRIST_SINGLE_ORG: docs
+    volumes:
+      - grist_test_data:/persist
+    ports:
+      - 8485:8484
+    networks:
+      - test_network
+
+volumes:
+  grist_test_data:
+
+networks:
+  test_network:
+    external: true
